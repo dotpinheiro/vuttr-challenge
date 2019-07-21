@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
   body{
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialised !important;
+    background-color: #fff;
+    font-family: "Source Sans Pro";
+    font-size:20px;
   }
 `;
 

@@ -1,8 +1,14 @@
 import styled from "styled-components";
 
 export const ToolWrapper = styled.div`
-  width: 100%;
-  border: 1px solid;
+  width: 80%;
+  margin: 2% 0;
+  padding: 5% 10%;
+  background-color: #fff;
+  box-shadow: 0 5px 7px #ebeaed;
+  :first-child {
+    margin-top: 0 !important;
+  }
 `;
 
 export const ToolHeader = styled.div`
@@ -32,4 +38,5 @@ export const TagsWrapper = styled.ul`
 
 export const Tag = styled.li`
   font-size: 0.8em;
+  white-space: pre-line;
 `;

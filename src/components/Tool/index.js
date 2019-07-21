@@ -8,22 +8,45 @@ import {
   Tag,
   ToolDescription
 } from "./styles";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Creators as AlertActions } from "../../store/ducks/alert";
 
-const Tool = () => (
+const Tool = props => (
   <ToolWrapper>
     <ToolHeader>
-      <ToolTitle href="#">Notion</ToolTitle>
-      <RemoveButton>x remove</RemoveButton>
+      <ToolTitle href={props.data.link}>{props.data.title}</ToolTitle>
+      <RemoveButton
+        onClick={() => {
+          let params = {
+            id: props.data.id,
+            message: `Are you sure you want to remove ${props.data.title}?`
+          };
+          props.openAlert(params);
+        }}
+      >
+        x remove
+      </RemoveButton>
     </ToolHeader>
-    <ToolDescription>
-      All in one tool to organize teams and ideas
-    </ToolDescription>
+    <ToolDescription>{props.data.description}</ToolDescription>
     <TagsWrapper>
-      <Tag>#organization</Tag>
-      <Tag>#planning</Tag>
-      <Tag>#collaboration</Tag>
+      {props.data.tags.map((tag, index) => (
+        <Tag key={index}>
+          <pre>#{tag} </pre>
+        </Tag>
+      ))}
     </TagsWrapper>
   </ToolWrapper>
 );
 
-export default Tool;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(AlertActions, dispatch);
+
+const mapStateToProps = state => ({
+  alert: state.alert
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tool);
