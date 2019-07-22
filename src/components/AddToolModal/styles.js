@@ -27,6 +27,7 @@ export const BackDrop = styled.div`
 export const AddToolContent = styled.div`
   position: relative;
   z-index: 2;
+  border-radius: 5px;
   width: 35%;
   height: 50%;
   background-color: #fff;
@@ -38,13 +39,19 @@ export const AddToolContent = styled.div`
 
 export const MainTitle = styled.div`
   display: flex;
+  font-weight: 600;
+  color: #170c3a;
   width: 100%;
   align-items: flex-start;
   span {
-    padding: 3%;
+    padding: 3% 5%;
     width: 100%;
     font-size: 1.5em;
     font-weight: bold;
+    i {
+      font-size: 0.8em;
+      margin: 0 2% 0 0;
+    }
   }
 `;
 
@@ -60,7 +67,6 @@ export const Footer = styled.div`
   width: 100%;
   justify-content: flex-end;
   button {
-    text-decoration: none;
-    border: 1px solid;
+    margin: 5% 0;
   }
 `;

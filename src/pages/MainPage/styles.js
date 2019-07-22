@@ -17,6 +17,7 @@ export const Header = styled.header`
 
 export const MainTitle = styled.h1`
   font-size: 42px;
+  padding: 0 0 3% 0;
   text-transform: "uppercase";
   font-weight: 600;
   color: #170c3a;
@@ -24,32 +25,26 @@ export const MainTitle = styled.h1`
 
 export const MainSubtitle = styled.h2`
   font-size: 36px;
+  padding: 0 0 5% 0;
   color: #170c3a;
 `;
 
 export const ControlsContainer = styled.div`
   display: flex;
   width: 100%;
-  padding: 0 5px;
   label {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    margin: 0 3%;
+    width: 100%;
     span {
+      margin: 0 3%;
       font-size: 20px;
     }
-  }
-`;
-
-export const SearchInput = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  input {
-    border: 1px solid #ebeaed;
-    background-color: #f5f4f6;
-    border-radius: 5px;
-    color: #b1adb9;
-    font-size: 20px;
-    letter-spacing: 0.05em;
+    input {
+      cursor: pointer;
+    }
   }
 `;
 

@@ -1,9 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { AlertContainer, AlertWrapper, BackDrop } from "./style";
+import {
+  AlertContainer,
+  AlertWrapper,
+  BackDrop,
+  AlertTitle,
+  AlertMessage,
+  AlertButtons
+} from "./style";
 import { Creators as AlertActions } from "../../store/ducks/alert";
 import { bindActionCreators } from "redux";
 import Proptypes from "prop-types";
+import { Button } from "../Button";
 
 const Alert = props => {
   const onClose = () => {
@@ -19,30 +27,47 @@ const Alert = props => {
   return (
     <AlertContainer visible={props.alert.open}>
       <AlertWrapper>
-        <div>
+        <AlertTitle>
+          <div>
+            <i
+              class="fas fa-times"
+              onClick={() => {
+                onClose();
+              }}
+            />
+          </div>
           <span>{props.title}</span>
-        </div>
-        <div>
+        </AlertTitle>
+        <AlertMessage>
           <span>{props.alert.message || props.message}</span>
-        </div>
-        <div>
-          <button
+        </AlertMessage>
+        <AlertButtons>
+          <Button
+            height={"50%"}
+            width={"15%"}
             onClick={() => {
               onClose();
             }}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
+            danger
+            height={"50%"}
+            width={"25%"}
             onClick={() => {
               onConfirm();
             }}
           >
-            Yes
-          </button>
-        </div>
+            Yes, remove
+          </Button>
+        </AlertButtons>
       </AlertWrapper>
-      <BackDrop />
+      <BackDrop
+        onClick={() => {
+          onClose();
+        }}
+      />
     </AlertContainer>
   );
 };

@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as toolsActions } from "../../store/ducks/tools";
 import TagInput from "../TagInput";
+import { Button } from "../Button";
 
 const AddToolModal = props => {
   const [toolName, setToolName] = useState("");
@@ -42,7 +43,9 @@ const AddToolModal = props => {
     <AddToolContainer visible={props.tools.visible}>
       <AddToolContent>
         <MainTitle>
-          <span>+ Add new tool</span>
+          <span>
+            <i class="fas fa-plus" /> Add new tool
+          </span>
         </MainTitle>
         <FormWrapper>
           <TextInput
@@ -64,7 +67,7 @@ const AddToolModal = props => {
           <TextArea
             title={"ToolDescription"}
             cols={20}
-            rows={5}
+            rows={3}
             value={toolDescription}
             onChange={event => {
               setToolDescription(event.target.value);
@@ -78,13 +81,14 @@ const AddToolModal = props => {
             }}
           />
           <Footer>
-            <button
+            <Button
+              width={"20%"}
               onClick={() => {
                 addTool();
               }}
             >
               <span>Add Tool</span>
-            </button>
+            </Button>
           </Footer>
         </FormWrapper>
       </AddToolContent>

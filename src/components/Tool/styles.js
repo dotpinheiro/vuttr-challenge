@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ToolWrapper = styled.div`
-  width: 80%;
+  width: 94%;
   margin: 2% 0;
-  padding: 5% 10%;
+  padding: 5% 3%;
   background-color: #fff;
   box-shadow: 0 5px 7px #ebeaed;
   :first-child {
@@ -14,16 +14,26 @@ export const ToolWrapper = styled.div`
 export const ToolHeader = styled.div`
   width: 100%;
   display: flex;
+  button {
+    i {
+      font-size: 12px;
+      margin: 0 5%;
+    }
+    span {
+      font-size: 14px;
+    }
+  }
 `;
 
 export const ToolTitle = styled.a`
   flex-grow: 1;
-  padding: 0 5px;
-  align-items: flex-start;
+  width: 100%;
+  justify-content: flex-start;
 `;
 
 export const ToolDescription = styled.p`
-  font-size: 1em;
+  font-size: 0.8em;
+  margin: 1% 0 2% 0;
 `;
 
 export const RemoveButton = styled.button`
@@ -33,10 +43,15 @@ export const RemoveButton = styled.button`
 export const TagsWrapper = styled.ul`
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 `;
 
 export const Tag = styled.li`
   font-size: 0.8em;
-  white-space: pre-line;
+  margin: 0 1%;
+  font-weight: 600;
+  :first-child {
+    margin-left: 0;
+  }
 `;

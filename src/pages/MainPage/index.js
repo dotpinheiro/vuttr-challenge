@@ -6,7 +6,6 @@ import {
   MainSubtitle,
   ControlsContainer,
   Header,
-  SearchInput,
   AddButton
 } from "./styles";
 import AddToolModal from "../../components/AddToolModal";
@@ -14,6 +13,8 @@ import { connect } from "react-redux";
 import { Creators as ToolsReducer } from "../../store/ducks/tools";
 import Alert from "../../components/Alert";
 import { bindActionCreators } from "redux";
+import { Button } from "../../components/Button";
+import { SearchInput } from "../../components/SearchInput";
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -45,30 +46,28 @@ class MainPage extends React.Component {
           <MainTitle>VUTTR</MainTitle>
           <MainSubtitle>Very Useful Tools to Remember</MainSubtitle>
           <ControlsContainer>
-            <SearchInput>
-              <div>a</div>
-              <input
-                type="text"
-                placeholder="Search"
-                onChange={event => {
-                  this.setState(
-                    {
-                      searchParams: {
-                        searchInput: event.target.value,
-                        onlyTags: this.state.searchParams.onlyTags
-                      }
-                    },
-                    () => {
-                      this.loadTools();
+            <SearchInput
+              type="text"
+              name="search"
+              placeholder="Search"
+              onChange={event => {
+                this.setState(
+                  {
+                    searchParams: {
+                      searchInput: event.target.value,
+                      onlyTags: this.state.searchParams.onlyTags
                     }
-                  );
-                }}
-              />
-            </SearchInput>
-            <label htmlFor={"searchTags"}>
+                  },
+                  () => {
+                    this.loadTools();
+                  }
+                );
+              }}
+            />
+            <label forHtml="tags">
               <input
+                name="tags"
                 type="checkbox"
-                name={"searchTags"}
                 value={this.state.searchParams.onlyTags}
                 onChange={event => {
                   this.setState(
@@ -86,13 +85,16 @@ class MainPage extends React.Component {
               />
               <span>search in tags only</span>
             </label>
-            <AddButton
+            <Button
+              width={"20%"}
               onClick={() => {
                 this.props.openModal();
               }}
             >
-              <span>Add</span>
-            </AddButton>
+              <span>
+                <i class="fas fa-plus" /> Add
+              </span>
+            </Button>
           </ControlsContainer>
         </Header>
         {this.props.tools.data.map((tool, index) => (

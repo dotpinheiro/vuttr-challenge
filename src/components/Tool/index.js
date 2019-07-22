@@ -11,12 +11,13 @@ import {
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Creators as AlertActions } from "../../store/ducks/alert";
+import { Button } from "../Button";
 
 const Tool = props => (
   <ToolWrapper>
     <ToolHeader>
       <ToolTitle href={props.data.link}>{props.data.title}</ToolTitle>
-      <RemoveButton
+      <Button
         onClick={() => {
           let params = {
             id: props.data.id,
@@ -25,15 +26,14 @@ const Tool = props => (
           props.openAlert(params);
         }}
       >
-        x remove
-      </RemoveButton>
+        <i class="fas fa-times" />
+        <span>remove</span>
+      </Button>
     </ToolHeader>
     <ToolDescription>{props.data.description}</ToolDescription>
     <TagsWrapper>
       {props.data.tags.map((tag, index) => (
-        <Tag key={index}>
-          <pre>#{tag} </pre>
-        </Tag>
+        <Tag key={index}>#{tag}</Tag>
       ))}
     </TagsWrapper>
   </ToolWrapper>
