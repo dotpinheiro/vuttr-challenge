@@ -28,6 +28,7 @@ export const AddToolContent = styled.div`
   position: relative;
   z-index: 2;
   border-radius: 5px;
+  overflow: auto;
   width: 35%;
   height: 50%;
   background-color: #fff;

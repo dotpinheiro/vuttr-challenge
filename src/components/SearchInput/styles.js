@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SearchInputContainer = styled.div`
   display: flex;
   align-items: center;
+  width: ${props => (props.width ? props.width : "50%")};
   justify-content: center;
   border-radius: 5px;
   background-color: #f5f4f6;

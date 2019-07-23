@@ -92,7 +92,7 @@ class MainPage extends React.Component {
               }}
             >
               <span>
-                <i class="fas fa-plus" /> Add
+                <i className="fas fa-plus" /> Add
               </span>
             </Button>
           </ControlsContainer>

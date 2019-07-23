@@ -51,6 +51,7 @@ const AddToolModal = props => {
           <TextInput
             type={"text"}
             title={"Tool Name"}
+            required
             value={toolName}
             onChange={event => {
               setToolName(event.target.value);
@@ -65,7 +66,7 @@ const AddToolModal = props => {
             }}
           />
           <TextArea
-            title={"ToolDescription"}
+            title={"Tool Description"}
             cols={20}
             rows={3}
             value={toolDescription}
@@ -76,8 +77,7 @@ const AddToolModal = props => {
           <TagInput
             title={"Tags"}
             onTagAdded={tags => {
-              console.tron.log(tags);
-              setToolTags(tags);
+              setToolTags(tags.value);
             }}
           />
           <Footer>
