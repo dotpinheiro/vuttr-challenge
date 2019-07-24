@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import {
   AlertContainer,
@@ -24,44 +24,54 @@ const Alert = props => {
     props.closeAlert();
   };
 
+  const renderButtons = () => {
+    if (props.alert.buttons.length > 0) {
+      return props.alert.buttons.map((button, index) => (
+        <Button
+          key={index}
+          height={"50%"}
+          type={button.type}
+          width={"20%"}
+          onClick={() => {
+            if (!!button.action) button.action();
+            props.closeAlert();
+          }}
+        >
+          {button.text}
+        </Button>
+      ));
+    } else {
+      return (
+        <Button
+          height={"50%"}
+          onClick={() => {
+            props.closeAlert();
+          }}
+        >
+          Ok
+        </Button>
+      );
+    }
+  };
+
   return (
     <AlertContainer visible={props.alert.open}>
       <AlertWrapper>
         <AlertTitle>
           <div>
             <i
-              class="fas fa-times"
+              className="fas fa-times"
               onClick={() => {
                 onClose();
               }}
             />
           </div>
-          <span>{props.title}</span>
+          <span>{props.alert.title}</span>
         </AlertTitle>
         <AlertMessage>
           <span>{props.alert.message || props.message}</span>
         </AlertMessage>
-        <AlertButtons>
-          <Button
-            height={"50%"}
-            width={"15%"}
-            onClick={() => {
-              onClose();
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            danger
-            height={"50%"}
-            width={"25%"}
-            onClick={() => {
-              onConfirm();
-            }}
-          >
-            Yes, remove
-          </Button>
-        </AlertButtons>
+        <AlertButtons>{renderButtons()}</AlertButtons>
       </AlertWrapper>
       <BackDrop
         onClick={() => {

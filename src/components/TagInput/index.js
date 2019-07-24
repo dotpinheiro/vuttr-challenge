@@ -10,10 +10,16 @@ const KEYBOARD_EVENTS = {
 const TagInput = props => {
   const [items, setItems] = useState([]);
   const [input, setInput] = useState("");
+  const { value, onChange } = props;
+  useEffect(() => {
+    let tags = [];
+    items.map(item => tags.push(item.value));
+    onChange(tags);
+  }, [items]);
 
   useEffect(() => {
-    props.onTagAdded(items);
-  }, [items]);
+    if (value.length === 0 && items.length !== 0) setItems([]);
+  }, [value]);
 
   const addNewTag = value => {
     setItems([...items, { id: Date.now(), value: value.trim() }]);
@@ -47,6 +53,8 @@ const TagInput = props => {
           setItems([...items]);
         }
         break;
+      default:
+        return false;
     }
   };
 
@@ -75,6 +83,7 @@ const TagInput = props => {
               </li>
             ))}
             <input
+              autoComplete={"off"}
               type={"text"}
               name={"tagInput"}
               value={input}

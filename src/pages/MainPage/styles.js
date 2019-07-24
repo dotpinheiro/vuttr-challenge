@@ -52,3 +52,8 @@ export const AddButton = styled.button`
   text-decoration: none;
   border: 1px solid;
 `;
+
+export const ErrorMsg = styled.span`
+  margin: 20% 0 0 0;
+  font-size: 20px;
+`;

@@ -12,7 +12,10 @@ export const Types = {
 const INITIAL_STATE = {
   open: false,
   id: null,
-  message: ""
+  title: "",
+  type: "",
+  message: "",
+  buttons: []
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -23,7 +26,9 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         open: true,
         id: payload.id,
-        message: payload.message
+        message: payload.message,
+        title: payload.title,
+        buttons: payload.buttons || []
       };
     case Types.CLOSE_ALERT:
       return {

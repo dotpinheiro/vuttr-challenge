@@ -2,11 +2,11 @@ import React from "react";
 import { StyledButton } from "./styles";
 export const Button = props => (
   <StyledButton
-    danger={props.danger}
+    type={props.type}
     width={props.width}
     heigth={props.heigth}
     onClick={props.onClick}
   >
-    {props.children}
+    <span>{props.children}</span>
   </StyledButton>
 );

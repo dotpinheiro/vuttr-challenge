@@ -5,8 +5,8 @@ import {
   MainTitle,
   MainSubtitle,
   ControlsContainer,
-  Header,
-  AddButton
+  ErrorMsg,
+  Header
 } from "./styles";
 import AddToolModal from "../../components/AddToolModal";
 import { connect } from "react-redux";
@@ -39,6 +39,20 @@ class MainPage extends React.Component {
     this.props.removeToolRequest(this.props.alert.id);
   };
 
+  renderTools = () => {
+    if (this.props.tools.errors && this.props.tools.data.length === 0) {
+      return this.props.tools.errors.map((error, index) =>
+        error.type == "load" ? (
+          <ErrorMsg key={index}>{error.message}</ErrorMsg>
+        ) : null
+      );
+    }
+
+    return this.props.tools.data.map((tool, index) => (
+      <Tool key={index} data={tool} />
+    ));
+  };
+
   render() {
     return (
       <MainWrapper>
@@ -49,12 +63,13 @@ class MainPage extends React.Component {
             <SearchInput
               type="text"
               name="search"
+              width={"40%"}
               placeholder="Search"
-              onChange={event => {
+              onChange={value => {
                 this.setState(
                   {
                     searchParams: {
-                      searchInput: event.target.value,
+                      searchInput: value,
                       onlyTags: this.state.searchParams.onlyTags
                     }
                   },
@@ -64,7 +79,7 @@ class MainPage extends React.Component {
                 );
               }}
             />
-            <label forHtml="tags">
+            <label forhtml="tags">
               <input
                 name="tags"
                 type="checkbox"
@@ -97,11 +112,9 @@ class MainPage extends React.Component {
             </Button>
           </ControlsContainer>
         </Header>
-        {this.props.tools.data.map((tool, index) => (
-          <Tool key={index} data={tool} />
-        ))}
+        {this.renderTools()}
         <AddToolModal />
-        <Alert title={"Remove Tool"} onConfirm={this.removeTool} />
+        <Alert onConfirm={this.removeTool} />
       </MainWrapper>
     );
   }

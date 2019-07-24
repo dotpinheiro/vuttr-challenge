@@ -24,7 +24,6 @@ export const BackDrop = styled.div`
 export const AlertWrapper = styled.div`
   z-index: 2;
   width: 30%;
-  height: 20%;
   background-color: #fff;
   display: flex;
   border-radius: 3px;
@@ -56,7 +55,6 @@ export const AlertTitle = styled.div`
 
 export const AlertMessage = styled.div`
   display: flex;
-  width: 100%;
   margin: 0 5%;
   align-items: center;
   justify-content: flex-start;

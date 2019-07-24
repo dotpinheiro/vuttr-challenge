@@ -11,7 +11,16 @@ export function* getTools(action) {
   try {
     const { data } = yield call(api.get, params);
     yield put(ToolsActions.getToolsSuccess(data));
-  } catch (ex) {}
+  } catch (ex) {
+    const errors = [
+      {
+        error: true,
+        type: "load",
+        message: "Oops! an error has ocurred, check your connection."
+      }
+    ];
+    yield put(ToolsActions.getToolsFailure(errors));
+  }
 }
 
 export function* addTool(action) {
@@ -19,7 +28,16 @@ export function* addTool(action) {
   try {
     const { data } = yield call(api.post, "/tools", payload.data);
     yield put(ToolsActions.addToolSuccess(data));
-  } catch (ex) {}
+  } catch (ex) {
+    const errors = [
+      {
+        error: true,
+        type: "add",
+        message: "an error has ocurred, please check your connection."
+      }
+    ];
+    yield put(ToolsActions.addToolFailure(errors));
+  }
 }
 
 export function* removeTool(action) {
@@ -27,5 +45,14 @@ export function* removeTool(action) {
   try {
     yield call(api.delete, `/tools/${payload.id}`);
     yield put(ToolsActions.removeToolSuccess(payload.id));
-  } catch (ex) {}
+  } catch (ex) {
+    const errors = [
+      {
+        error: true,
+        type: "remove",
+        message: "Oops! an error has ocurred, check your connection."
+      }
+    ];
+    yield put(ToolsActions.removeToolFailure(errors));
+  }
 }

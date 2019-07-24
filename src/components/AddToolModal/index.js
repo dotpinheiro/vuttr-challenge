@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AddToolContainer,
   AddToolContent,
@@ -12,6 +12,7 @@ import { TextArea } from "../TextArea";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as toolsActions } from "../../store/ducks/tools";
+import { Creators as alertActions } from "../../store/ducks/alert";
 import TagInput from "../TagInput";
 import { Button } from "../Button";
 
@@ -19,13 +20,50 @@ const AddToolModal = props => {
   const [toolName, setToolName] = useState("");
   const [toolLink, setToolLink] = useState("");
   const [toolDescription, setToolDescription] = useState("");
-  const [toolTags, setToolTags] = useState("");
+  const [toolTags, setToolTags] = useState([]);
+  const { errors } = props.tools;
+  const { openAlert } = props;
+  const [formError, setFormError] = useState({
+    toolName: { error: false }
+  });
+
+  /**
+   * Errors Effect
+   */
+  useEffect(() => {
+    if (errors) {
+      errors.map((error, index) => {
+        if (error.type === "add") {
+          let params = {
+            title: "Oops!",
+            message: error.message
+          };
+          openAlert(params);
+        }
+      });
+    }
+  }, [errors]);
 
   const clearForm = () => {
     setToolName("");
     setToolLink("");
     setToolDescription("");
     setToolTags([]);
+  };
+
+  const validateForm = () => {
+    if (toolName.trim() === "") {
+      let data = {
+        toolName: { error: "Insert a tool name" }
+      };
+      setFormError(data);
+      return false;
+    }
+    let data = {
+      toolName: { error: false }
+    };
+    setFormError(data);
+    return true;
   };
 
   const addTool = () => {
@@ -35,16 +73,19 @@ const AddToolModal = props => {
       description: toolDescription,
       tags: toolTags
     };
-    props.addToolRequest(data);
-    props.closeModal();
-    clearForm();
+    let formValidation = validateForm();
+    if (formValidation) {
+      props.addToolRequest(data);
+      props.closeModal();
+      clearForm();
+    }
   };
   return (
     <AddToolContainer visible={props.tools.visible}>
       <AddToolContent>
         <MainTitle>
           <span>
-            <i class="fas fa-plus" /> Add new tool
+            <i className="fas fa-plus" /> Add new tool
           </span>
         </MainTitle>
         <FormWrapper>
@@ -52,9 +93,11 @@ const AddToolModal = props => {
             type={"text"}
             title={"Tool Name"}
             required
+            error={formError.toolName.error}
             value={toolName}
             onChange={event => {
               setToolName(event.target.value);
+              validateForm();
             }}
           />
           <TextInput
@@ -76,8 +119,9 @@ const AddToolModal = props => {
           />
           <TagInput
             title={"Tags"}
-            onTagAdded={tags => {
-              setToolTags(tags.value);
+            value={toolTags}
+            onChange={tags => {
+              setToolTags(tags);
             }}
           />
           <Footer>
@@ -102,7 +146,7 @@ const AddToolModal = props => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(toolsActions, dispatch);
+  bindActionCreators({ ...toolsActions, ...alertActions }, dispatch);
 const mapStateToProps = state => ({
   tools: state.tools
 });
