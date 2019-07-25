@@ -57,3 +57,9 @@ export const ErrorMsg = styled.span`
   margin: 20% 0 0 0;
   font-size: 20px;
 `;
+
+export const WarnMsg = styled.span`
+  margin: 20% 0 0 0;
+  cursor: pointer;
+  font-size: 20px;
+`;

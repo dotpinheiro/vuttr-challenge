@@ -6,7 +6,8 @@ import {
   MainSubtitle,
   ControlsContainer,
   ErrorMsg,
-  Header
+  Header,
+  WarnMsg
 } from "./styles";
 import AddToolModal from "../../components/AddToolModal";
 import { connect } from "react-redux";
@@ -35,16 +36,24 @@ class MainPage extends React.Component {
     this.props.getToolsRequest(this.state.searchParams);
   };
 
-  removeTool = () => {
-    this.props.removeToolRequest(this.props.alert.id);
-  };
-
   renderTools = () => {
     if (this.props.tools.errors && this.props.tools.data.length === 0) {
       return this.props.tools.errors.map((error, index) =>
         error.type == "load" ? (
           <ErrorMsg key={index}>{error.message}</ErrorMsg>
         ) : null
+      );
+    }
+
+    if (this.props.tools.data.length === 0) {
+      return (
+        <WarnMsg
+          onClick={() => {
+            this.props.openModal();
+          }}
+        >
+          There's no tool yet, click on me to add the first one (:
+        </WarnMsg>
       );
     }
 
@@ -114,7 +123,7 @@ class MainPage extends React.Component {
         </Header>
         {this.renderTools()}
         <AddToolModal />
-        <Alert onConfirm={this.removeTool} />
+        <Alert />
       </MainWrapper>
     );
   }
