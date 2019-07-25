@@ -31,7 +31,7 @@ const Alert = props => {
           key={index}
           height={"50%"}
           type={button.type}
-          width={"20%"}
+          width={"25%"}
           onClick={() => {
             if (!!button.action) button.action();
             props.closeAlert();

@@ -9,4 +9,13 @@ services:
       - ".:/usr/src/vuttr"
     ports:
       - "8080:8080"
-    command: npm start
+    expose:
+      - 8080
+  json-server:
+    build: containers/json-server
+    volumes:
+      - "./containers/json-server:/usr/src/json-server"
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
