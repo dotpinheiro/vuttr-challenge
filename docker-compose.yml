@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: containers/app/Dockerfile
+    volumes:
+      - ".:/usr/src/vuttr"
+    ports:
+      - "8080:8080"
+    command: npm start
